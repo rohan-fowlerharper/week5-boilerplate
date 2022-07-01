@@ -7,6 +7,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   test: {
+    environmentOptions: {},
     setupFiles: './test/setup.js',
   },
   server: {
