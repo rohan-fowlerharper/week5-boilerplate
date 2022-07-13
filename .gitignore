@@ -1,3 +1,7 @@
+# Custom to project
+dev.sqlite3
+.env
+
 # Logs
 logs
 *.log

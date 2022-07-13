@@ -1,14 +1,3 @@
-// add testing-library/jest-dom matchers to expect()
-import matchers from '@testing-library/jest-dom/matchers'
-import { expect } from 'vitest'
-
-expect.extend(matchers)
-
-// cleanup testing-library after each test
-// needed after performing the step above
-import { afterEach } from 'vitest'
-import { cleanup } from '@testing-library/react'
-
-afterEach(() => {
-  cleanup()
-})
+// when using globals: true in vite.config.js
+// you do not need to import matchers and extend expect manually
+import '@testing-library/jest-dom'

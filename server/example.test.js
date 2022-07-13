@@ -1,8 +1,4 @@
 // @vitest-environment node
-// import syntax is required for vitest
-// could be an option to either enable global variables
-// or use ESM on the server
-import { describe, it, expect } from 'vitest'
 const request = require('supertest')
 const server = require('./server')
 
