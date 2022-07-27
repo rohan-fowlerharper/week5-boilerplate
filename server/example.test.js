@@ -9,8 +9,8 @@ beforeEach(async () => {
 
 describe('GET /api', () => {
   it('should return 200', async () => {
-    const res = await request(server).get('/api')
+    const res = await request(server).get('/api/hello-world')
     expect(res.status).toBe(200)
-    expect(res.body).toHaveLength(2)
+    expect(res.body).toBe('Hello World')
   })
 })
