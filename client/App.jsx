@@ -27,7 +27,9 @@ function App() {
           </button>
           <button onClick={fetchFruit}>Fetch Fruits</button>
           {fruits.map((fruit) => (
-            <div key={fruit.id}>{fruit.name}</div>
+            <div key={fruit.id}>
+              {fruit.name}: {fruit.color}
+            </div>
           ))}
         </div>
       </div>
