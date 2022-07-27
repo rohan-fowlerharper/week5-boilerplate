@@ -2,10 +2,18 @@ import './App.css'
 
 import { useState } from 'react'
 
+import * as api from '@/apiClient/fruits'
+
 import logo from './logo.png'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [fruits, setFruits] = useState([])
+
+  async function fetchFruit() {
+    const data = await api.fetchFruit()
+    setFruits(data)
+  }
 
   return (
     <div className='App'>
@@ -17,6 +25,10 @@ function App() {
           <button onClick={() => setCount((count) => count + 1)}>
             {count}
           </button>
+          <button onClick={fetchFruit}>Fetch Fruits</button>
+          {fruits.map((fruit) => (
+            <div key={fruit.id}>{fruit.name}</div>
+          ))}
         </div>
       </div>
     </div>
