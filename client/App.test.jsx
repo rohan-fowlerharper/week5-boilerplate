@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { MemoryRouter } from 'react-router-dom'
 
 import { fetchFruit } from '@/apiClient/fruits'
 import App from '@/App'
@@ -12,12 +13,12 @@ describe('<App />', () => {
   })
 
   it('renders', () => {
-    render(<App />)
+    render(<App />, { wrapper: MemoryRouter })
     expect(screen.getByText(/dev/i)).toBeInTheDocument()
   })
 
   it('increments count correctly', async () => {
-    render(<App />)
+    render(<App />, { wrapper: MemoryRouter })
 
     expect(screen.getByText(/0/i)).toBeInTheDocument()
 
@@ -29,7 +30,7 @@ describe('<App />', () => {
   it('fetches fruits correctly', async () => {
     fetchFruit.mockReturnValue(Promise.resolve([{ id: 1, name: 'apple' }]))
 
-    render(<App />)
+    render(<App />, { wrapper: MemoryRouter })
 
     expect(screen.queryByText(/apple/i)).toBeNull()
 
