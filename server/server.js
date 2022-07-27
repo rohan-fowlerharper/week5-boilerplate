@@ -6,18 +6,21 @@ const isProd = process.env.NODE_ENV === 'production'
 
 async function createServer() {
   const server = express()
+
+  let vite
   if (!isProd) {
-    const vite = await createViteServer({
+    // 1. use the vite dev server in development mode
+    vite = await createViteServer({
       server: {
         middlewareMode: true,
       },
     })
-
-    server.use(vite.middlewares)
   } else {
+    // 4. express.static (in production) needs to be before user-defined routes
     server.use(express.static('dist'))
   }
 
+  // 2. user-defined routes
   server.get('/api', (req, res) => {
     res.json([
       {
@@ -32,6 +35,11 @@ async function createServer() {
       },
     ])
   })
+
+  // 3. vite dev server middleware needs to be after user-defined routes
+  if (!isProd) {
+    server.use(vite.middlewares)
+  }
 
   return server
 }
