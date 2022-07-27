@@ -2,14 +2,21 @@ const express = require('express')
 
 const { createServer: createViteServer } = require('vite')
 
+const isProd = process.env.NODE_ENV === 'production'
+
 async function createServer() {
   const server = express()
+  if (!isProd) {
+    const vite = await createViteServer({
+      server: {
+        middlewareMode: true,
+      },
+    })
 
-  const vite = await createViteServer({
-    server: {
-      middlewareMode: true,
-    },
-  })
+    server.use(vite.middlewares)
+  } else {
+    server.use(express.static('dist'))
+  }
 
   server.get('/api', (req, res) => {
     res.json([
@@ -26,8 +33,7 @@ async function createServer() {
     ])
   })
 
-  server.use(vite.middlewares)
-
   return server
 }
+
 module.exports = createServer

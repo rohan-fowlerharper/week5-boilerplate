@@ -33,14 +33,8 @@ function App() {
             </div>
           ))}
           <Routes>
-            <Route
-              path='hello'
-              element={
-                <div>
-                  hello world this is a second route, this works on refresh
-                </div>
-              }
-            />
+            <Route path='/' element={<div>Home Route</div>} />
+            <Route path='hello' element={<div>A second route at /hello</div>} />
           </Routes>
         </div>
       </div>
