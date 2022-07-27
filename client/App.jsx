@@ -1,6 +1,7 @@
 import './App.css'
 
 import { useState } from 'react'
+import { Route, Routes } from 'react-router-dom'
 
 import * as api from '@/apiClient/fruits'
 
@@ -31,6 +32,16 @@ function App() {
               {fruit.name}: {fruit.color}
             </div>
           ))}
+          <Routes>
+            <Route
+              path='hello'
+              element={
+                <div>
+                  hello world this is a second route, this works on refresh
+                </div>
+              }
+            />
+          </Routes>
         </div>
       </div>
     </div>
