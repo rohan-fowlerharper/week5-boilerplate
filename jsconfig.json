@@ -3,7 +3,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["client/*"],
-      "@test/*": ["test/*"]
+      "@test/*": ["test/*"],
+      "@server/*": ["server/*"]
     }
   }
 }

@@ -16,6 +16,7 @@ module.exports = {
         map: [
           ['@', './client'],
           ['@test', './test'],
+          ['@server', './server'],
         ],
       },
       extensions: ['.js', '.jsx', '.css'],
