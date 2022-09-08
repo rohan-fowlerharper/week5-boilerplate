@@ -1,49 +1,48 @@
 const express = require('express')
-const fs = require('fs')
 const path = require('path')
+const { createServer: createViteServer } = require('vite')
 
-const server = express()
+const fruitsRouter = require('./routes/fruits.router')
 
-const isDevelopment =
-  !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
+const isDev =
+  process.env.NODE_ENV === undefined || process.env.NODE_ENV === 'development'
 
-// static assets
-server.use(express.static(path.resolve(__dirname, '../dist')))
+// use a function to create the server for async/await support
+async function createServer() {
+  const server = express()
 
-// middleware
-server.use(express.urlencoded({ extended: false }))
-
-// api routes
-server.get('/api', (req, res) => {
-  res.json({ message: 'Hello World' })
-})
-
-server.get('/api/*', (req, res) => {
-  res.sendStatus(404)
-})
-
-// serve the built dist folder (client)
-server.get('*', (req, res) => {
-  try {
-    const html = fs.readFileSync(
-      path.resolve(__dirname, '../dist/index.html'),
-      'utf8'
-    )
-    if (isDevelopment) {
-      console.warn(
-        'WARNING: You are using development mode with a preview build, please note that the preview build may not be up to date with your changes.'
-      )
-    }
-    return res.send(html)
-  } catch (err) {
-    console.log(err.message)
-    if (err.message.includes('no such file or directory')) {
-      return res
-        .status(404)
-        .send('dist folder not found, try running `npm run build`')
-    }
-    return res.status(500).send('something went wrong')
+  let vite
+  if (isDev) {
+    // use the vite dev server in development mode
+    vite = await createViteServer({
+      server: {
+        middlewareMode: true,
+      },
+    })
+  } else {
+    // express.static (in preview/production) needs to be before user-defined routes
+    server.use(express.static('dist'))
   }
-})
 
-module.exports = server
+  // user-defined routes and middleware
+  server.use(express.urlencoded({ extended: true }))
+  server.use('/api/fruits', fruitsRouter)
+  // use a 404 route to ensure you get good error messages when you miss api routes
+  server.use('/api/*', (req, res) => {
+    res.sendStatus(404)
+  })
+
+  // vite dev server middleware needs to be after user-defined routes
+  if (isDev) {
+    server.use(vite.middlewares)
+  } else {
+    // serve client files in production after user-defined routes
+    server.use('*', (req, res) => {
+      res.sendFile(path.resolve('dist/index.html'))
+    })
+  }
+
+  return server
+}
+
+module.exports = createServer

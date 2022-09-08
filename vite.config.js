@@ -11,17 +11,4 @@ export default defineConfig({
     globals: true,
     setupFiles: './test/setup.js',
   },
-  resolve: {
-    alias: {
-      '@': '/client',
-    },
-  },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3001',
-        changeOrigin: true,
-      },
-    },
-  },
 })

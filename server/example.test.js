@@ -1,11 +1,16 @@
 // @vitest-environment node
 const request = require('supertest')
-const server = require('./server')
+const createServer = require('./server')
+
+let server
+beforeEach(async () => {
+  server = await createServer()
+})
 
 describe('GET /api', () => {
   it('should return 200', async () => {
-    const res = await request(server).get('/api')
+    const res = await request(server).get('/api/hello-world')
     expect(res.status).toBe(200)
-    expect(res.body.message).toBe('Hello World')
+    expect(res.body).toBe('Hello World')
   })
 })

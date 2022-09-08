@@ -6,6 +6,7 @@ exports.up = function (knex) {
   return knex.schema.createTable('fruits', (table) => {
     table.increments('id').primary()
     table.string('name').notNullable()
+    table.string('color').notNullable()
     table.timestamps(true, true, true)
   })
 }

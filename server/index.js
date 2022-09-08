@@ -1,8 +1,9 @@
-const server = require('./server')
+const createServer = require('./server')
 
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 5173
 
-server.listen(port, () => {
-  console.log(`Server listening on port ${port}
-Link: http://localhost:${port}`)
+createServer().then((server) => {
+  server.listen(port, () => {
+    console.log(`Server listening at http://localhost:${port}`)
+  })
 })
