@@ -4,7 +4,8 @@ const { createServer: createViteServer } = require('vite')
 
 const fruitsRouter = require('./routes/fruits.router')
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev =
+  process.env.NODE_ENV === undefined || process.env.NODE_ENV === 'development'
 
 // use a function to create the server for async/await support
 async function createServer() {
@@ -26,9 +27,6 @@ async function createServer() {
   // user-defined routes and middleware
   server.use(express.urlencoded({ extended: true }))
   server.use('/api/fruits', fruitsRouter)
-  server.get('/api/hello-world', (req, res) => {
-    res.json('Hello World')
-  })
   // use a 404 route to ensure you get good error messages when you miss api routes
   server.use('/api/*', (req, res) => {
     res.sendStatus(404)
