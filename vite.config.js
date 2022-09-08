@@ -11,11 +11,4 @@ export default defineConfig({
     globals: true,
     setupFiles: './test/setup.js',
   },
-  resolve: {
-    alias: {
-      '@': '/client',
-      '@/test': '/test',
-      '@/server': '/server',
-    },
-  },
 })
