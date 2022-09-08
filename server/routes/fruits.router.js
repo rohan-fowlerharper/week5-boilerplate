@@ -1,7 +1,8 @@
-const express = require('express')
+import express from 'express'
+
+import * as fruitsDb from '../db/fruits.db.js'
 
 const router = express.Router()
-const fruitsDb = require('../db/fruits.db')
 
 router.get('/', (req, res) => {
   fruitsDb
@@ -15,4 +16,4 @@ router.get('/', (req, res) => {
     })
 })
 
-module.exports = router
+export default router

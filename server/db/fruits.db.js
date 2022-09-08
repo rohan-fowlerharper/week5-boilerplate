@@ -1,9 +1,5 @@
-const connection = require('./connection')
+import connection from './connection.js'
 
-function getAllFruits(db = connection) {
+export function getAllFruits(db = connection) {
   return db('fruits').select()
-}
-
-module.exports = {
-  getAllFruits,
 }

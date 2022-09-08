@@ -2,10 +2,10 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 
-import { fetchFruit } from '@/apiClient/fruits'
-import App from '@/App'
+import { fetchFruit } from './apiClient/fruits'
+import App from './App'
 
-vi.mock('@/apiClient/fruits')
+vi.mock('./apiClient/fruits')
 
 describe('<App />', () => {
   afterEach(() => {
@@ -28,14 +28,18 @@ describe('<App />', () => {
   })
 
   it('fetches fruits correctly', async () => {
-    fetchFruit.mockReturnValue(Promise.resolve([{ id: 1, name: 'apple' }]))
+    fetchFruit.mockReturnValue(
+      Promise.resolve([{ id: 1, name: 'apple', color: 'red' }])
+    )
 
     render(<App />, { wrapper: MemoryRouter })
 
     expect(screen.queryByText(/apple/i)).toBeNull()
+    expect(screen.queryByText(/red/i)).toBeNull()
 
     await userEvent.click(screen.getByRole('button', { name: /fetch/i }))
 
     expect(screen.getByText(/apple/i)).toBeInTheDocument()
+    expect(screen.getByText(/red/i)).toBeInTheDocument()
   })
 })

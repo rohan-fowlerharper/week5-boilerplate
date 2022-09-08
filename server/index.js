@@ -1,4 +1,4 @@
-const createServer = require('./server')
+import createServer from './server.js'
 
 const port = process.env.PORT || 5173
 

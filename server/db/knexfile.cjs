@@ -12,9 +12,11 @@ module.exports = {
     useNullAsDefault: true,
     migrations: {
       directory: path.resolve(__dirname, './migrations'),
+      loadExtensions: ['.mjs'],
     },
     seeds: {
       directory: path.resolve(__dirname, './seeds'),
+      loadExtensions: ['.mjs'],
     },
   },
   staging: {
@@ -25,9 +27,11 @@ module.exports = {
     useNullAsDefault: true,
     migrations: {
       directory: path.resolve(__dirname, './migrations'),
+      loadExtensions: ['.mjs'],
     },
     seeds: {
       directory: path.resolve(__dirname, './seeds'),
+      loadExtensions: ['.mjs'],
     },
   },
   test: {
@@ -38,9 +42,11 @@ module.exports = {
     useNullAsDefault: true,
     migrations: {
       directory: path.resolve(__dirname, './migrations'),
+      loadExtensions: ['.mjs'],
     },
     seeds: {
       directory: path.resolve(__dirname, './seeds'),
+      loadExtensions: ['.mjs'],
     },
   },
   production: {
@@ -57,6 +63,7 @@ module.exports = {
     },
     migrations: {
       tableName: 'knex_migrations',
+      loadExtensions: ['.mjs'],
     },
   },
 }
