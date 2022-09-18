@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node server",
-    "dev": "nodemon server",
+    "dev": "nodemon server --ignore 'vite.config.js.**'",
     "preview": "NODE_ENV=staging npm run build && node server",
     "build": "run-s build:client build:server",
     "build:client": "vite build",
